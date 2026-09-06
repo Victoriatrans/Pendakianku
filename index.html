@@ -1,269 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="D2exsplor - Paket private trip pendakian gunung di Pulau Jawa dengan pilihan transportasi Xenia, Avanza, Luxio, Elf Long dan Hiace.">
-  <title>D2exsplor | Private Trip Pendakian Gunung Jawa</title>
-  <style>
-    :root{
-      --bg:#07120f; --bg2:#0d1d18; --card:#10241d; --text:#f4f7f3;
-      --muted:#a9b9b1; --line:rgba(255,255,255,.10); --accent:#d5a84a;
-      --accent2:#f0c968; --green:#1c4938; --max:1180px;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#091713 55%,#07120f);color:var(--text);line-height:1.6}
-    a{text-decoration:none;color:inherit}
-    .container{width:min(92%,var(--max));margin:auto}
-    .nav{position:fixed;z-index:20;top:0;left:0;right:0;background:rgba(7,18,15,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between}
-    .logo{font-weight:900;letter-spacing:.08em}.logo span{color:var(--accent)}
-    .navlinks{display:flex;gap:26px;color:#d4ded9;font-size:.94rem}
-    .navlinks a:hover{color:var(--accent2)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;font-weight:800;border:1px solid transparent;transition:.2s}
-    .btn-primary{background:var(--accent);color:#172015}.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
-    .btn-outline{border-color:rgba(213,168,74,.5);color:var(--accent2)}
-    .hero{min-height:92vh;display:flex;align-items:center;padding:130px 0 80px;position:relative;overflow:hidden}
-    .hero:before{content:"";position:absolute;inset:0;background:
-      radial-gradient(circle at 75% 25%,rgba(213,168,74,.18),transparent 25%),
-      linear-gradient(120deg,rgba(7,18,15,.98) 18%,rgba(7,18,15,.72) 58%,rgba(7,18,15,.92)),
-      linear-gradient(135deg,#163e30,#07120f)}
-    .hero:after{content:"";position:absolute;bottom:-1px;left:0;right:0;height:120px;background:linear-gradient(160deg,transparent 49%,#0b1a15 50%)}
-    .hero-content{position:relative;z-index:1;max-width:780px}
-    .eyebrow{display:inline-block;color:var(--accent2);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;margin-bottom:16px}
-    h1{font-size:clamp(2.8rem,7vw,5.8rem);line-height:.98;letter-spacing:-.055em;margin-bottom:22px}
-    h1 em{font-style:normal;color:var(--accent2)}
-    .lead{font-size:1.1rem;color:#c0cdc7;max-width:650px;margin-bottom:30px}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:48px;max-width:720px}
-    .stat{padding:18px;border:1px solid var(--line);background:rgba(16,36,29,.72);border-radius:14px}
-    .stat b{font-size:1.5rem;color:var(--accent2);display:block}.stat span{color:var(--muted);font-size:.88rem}
-    section{padding:90px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:34px}
-    .section-head h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05}
-    .section-head p{max-width:520px;color:var(--muted)}
-    .mountains{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .mountain{min-height:270px;border:1px solid var(--line);border-radius:18px;overflow:hidden;position:relative;background:linear-gradient(145deg,#1b4637,#0d2019)}
-    .mountain:nth-child(2){background:linear-gradient(145deg,#3b3b27,#102219)}
-    .mountain:nth-child(3){background:linear-gradient(145deg,#233c45,#0c1c1a)}
-    .mountain:nth-child(4){background:linear-gradient(145deg,#4a3424,#102018)}
-    .mountain:nth-child(5){background:linear-gradient(145deg,#2e4632,#0a1915)}
-    .mountain:nth-child(6){background:linear-gradient(145deg,#433a2b,#0d1d18)}
-    .mountain:after{content:"";position:absolute;inset:auto -10% -18% -10%;height:55%;background:rgba(0,0,0,.28);clip-path:polygon(0 100%,35% 18%,48% 58%,65% 0,100% 100%)}
-    .mountain-content{position:absolute;z-index:2;left:22px;right:22px;bottom:20px}.tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent2)}
-    .mountain h3{font-size:1.55rem;margin:4px 0}.mountain p{color:#c0cdc7;font-size:.9rem}
-    .pricing{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-    .price-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative}
-    .price-card.featured{border-color:rgba(213,168,74,.65);box-shadow:0 15px 45px rgba(0,0,0,.18)}
-    .badge{position:absolute;right:14px;top:14px;font-size:.68rem;background:var(--accent);color:#1a2116;padding:5px 8px;border-radius:999px;font-weight:900}
-    .price-card h3{margin-bottom:6px}.price{font-size:1.7rem;color:var(--accent2);font-weight:900;margin:12px 0}
-    .price-card ul{list-style:none;color:var(--muted);font-size:.87rem;display:grid;gap:7px;margin:14px 0 20px}.price-card li:before{content:"✓";color:var(--accent2);margin-right:7px}
-    .package-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
-    .package{background:var(--card);border:1px solid var(--line);padding:28px;border-radius:18px}
-    .package h3{font-size:1.5rem;margin-bottom:7px}.package .big{font-size:2.4rem;color:var(--accent2);font-weight:900;margin:10px 0 16px}
-    .package ul{list-style:none;display:grid;gap:9px;color:#c5d0cb}.package li:before{content:"◆";font-size:.55rem;color:var(--accent);margin-right:10px;vertical-align:middle}
-    .note{margin-top:18px;color:#879b92;font-size:.82rem}
-    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.step{padding:24px;border:1px solid var(--line);border-radius:16px;background:#0c1d17}.step b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--green);color:var(--accent2);margin-bottom:18px}.step h3{margin-bottom:7px}.step p{color:var(--muted);font-size:.9rem}
-    .booking-form{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .field{display:grid;gap:7px}.field.full{grid-column:1/-1}
-    .field label{font-size:.88rem;font-weight:800;color:#d9e2dd}
-    .field input,.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.13);background:#091712;color:var(--text);border-radius:10px;padding:13px 14px;font:inherit;outline:none}
-    .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(213,168,74,.7)}
-    .field textarea{min-height:100px;resize:vertical}
-    .booking-actions{display:flex;align-items:center;gap:15px;margin-top:20px;flex-wrap:wrap}
-    .form-note{font-size:.78rem;color:#84978e}
-    .cta{border:1px solid rgba(213,168,74,.3);background:linear-gradient(110deg,#17382c,#0e211a);border-radius:24px;padding:48px;display:flex;align-items:center;justify-content:space-between;gap:30px}
-    .cta h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin-bottom:10px}.cta p{color:var(--muted);max-width:650px}
-    footer{padding:35px 0;border-top:1px solid var(--line);color:#82948c;font-size:.85rem}
-    .footer-inner{display:flex;justify-content:space-between;gap:20px}
-    @media(max-width:900px){.mountains{grid-template-columns:repeat(2,1fr)}.pricing{grid-template-columns:repeat(2,1fr)}.package-grid{grid-template-columns:1fr}.process{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}}
-    @media(max-width:560px){section{padding:65px 0}.stats,.mountains,.pricing,.process,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.hero{min-height:auto;padding-top:120px}.cta{padding:30px;display:block}.cta .btn{margin-top:22px}.footer-inner{display:block}.footer-inner div+div{margin-top:8px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b7cff">
+<title>PBW Adventure Indonesia — Open Trip Camp</title>
+<style>
+:root{--blue:#087df5;--blue2:#0b5bd3;--navy:#0d1b35;--ink:#172033;--muted:#667085;--bg:#f5f8fc;--card:#fff;--line:#e6ebf2;--green:#16a34a;--shadow:0 14px 40px rgba(13,27,53,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{text-decoration:none;color:inherit}.container{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.03em}
+.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#09a4ff,#0755d9);display:grid;place-items:center;color:white;font-size:12px;box-shadow:0 8px 20px rgba(8,125,245,.25);position:relative;overflow:hidden}
+.logo:after{content:"";position:absolute;width:60px;height:22px;background:rgba(255,255,255,.15);transform:rotate(-30deg);top:8px;left:-18px}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em}
+nav{display:flex;gap:22px;font-size:14px;font-weight:700;color:#475467}
+nav a:hover{color:var(--blue)}.nav-cta{background:var(--navy);color:#fff;padding:11px 16px;border-radius:12px;font-size:13px;font-weight:800}
+.hero{padding:72px 0 46px;background:radial-gradient(circle at 80% 10%,rgba(8,125,245,.13),transparent 34%),linear-gradient(180deg,#fff 0,#f5f8fc 100%)}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:42px;align-items:center}
+.eyebrow{display:inline-flex;padding:7px 11px;border:1px solid #cfe2ff;background:#eef6ff;color:#075ac7;border-radius:999px;font-size:12px;font-weight:800}
+h1{font-size:clamp(42px,7vw,72px);line-height:.98;letter-spacing:-.06em;margin:18px 0}.hero p{font-size:18px;color:var(--muted);max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 19px;border-radius:13px;font-weight:850;border:1px solid var(--line);cursor:pointer}
+.btn-primary{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 10px 22px rgba(8,125,245,.2)}.btn-secondary{background:#fff}
+.hero-card{background:var(--navy);color:#fff;border-radius:24px;padding:26px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero-card:before{content:"";position:absolute;inset:auto -30px -70px auto;width:220px;height:220px;border-radius:50%;background:rgba(8,125,245,.28)}
+.hero-card h3{margin:0 0 5px;font-size:24px}.hero-card p{color:#c8d4e9;font-size:14px;margin:0 0 22px}.stat{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:14px;border-radius:14px}.stat b{display:block;font-size:19px}.stat span{font-size:11px;color:#b8c5db}
+section{padding:64px 0}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}.section-head h2{font-size:34px;line-height:1.1;letter-spacing:-.04em;margin:0}.section-head p{color:var(--muted);margin:7px 0 0}
+.months{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.month-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 15px;font-weight:800;cursor:pointer}.month-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.trip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.trip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 6px 22px rgba(13,27,53,.04);transition:.2s}.trip:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.trip-top{display:flex;justify-content:space-between;gap:15px}.date{font-size:12px;font-weight:900;color:var(--blue);background:#eef6ff;padding:7px 9px;border-radius:9px;white-space:nowrap}.trip h3{font-size:21px;margin:0}.route{color:var(--muted);font-size:13px;margin-top:2px}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}.price{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fbfcfe}.price small{display:block;color:var(--muted);font-weight:800;font-size:10px}.price b{display:block;font-size:14px;margin-top:3px}.select-trip{margin-top:14px;width:100%;padding:11px;border:0;border-radius:11px;background:#edf5ff;color:#075ac7;font-weight:850;cursor:pointer}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 7px 26px rgba(13,27,53,.04)}.panel h3{margin:0 0 14px;font-size:21px}.panel ul{margin:0;padding-left:19px}.panel li{margin:8px 0;color:#475467}.include li::marker{color:var(--green)}.exclude li::marker{color:#e11d48}
+.required-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.check{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font-size:14px}.check:before{content:"✓";color:var(--green);font-weight:900;margin-right:8px}
+.terms{background:var(--navy);color:#fff;border-radius:24px;padding:30px}.terms p,.terms li{color:#c9d4e7}.terms li{margin:10px 0}.note{margin-top:16px;padding:13px 15px;border-radius:12px;background:rgba(8,125,245,.16);border:1px solid rgba(8,125,245,.3);font-size:13px}
+.form-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}.form{background:#fff;border:1px solid var(--line);border-radius:22px;padding:25px;box-shadow:var(--shadow)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{display:block;font-size:12px;font-weight:850;margin-bottom:6px;color:#344054}input,select,textarea{width:100%;padding:12px 13px;border:1px solid #d8dee8;border-radius:11px;background:#fff;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(8,125,245,.1)}textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}.payment{background:linear-gradient(145deg,#0d1b35,#12325e);color:#fff;border-radius:22px;padding:25px}.pay-card{margin-top:12px;padding:16px;border-radius:15px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}.pay-card b{font-size:18px}.copy{float:right;border:0;border-radius:8px;padding:6px 9px;cursor:pointer}.payment .muted{color:#b9c7dc;font-size:13px}
+footer{padding:35px 0 55px;color:#667085;font-size:13px}.footer-line{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;gap:20px}
+.toast{position:fixed;right:18px;bottom:18px;background:#0d1b35;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;font-size:13px}.toast.show{opacity:1;transform:none}
+@media(max-width:800px){nav{display:none}.hero-grid,.info-grid,.required-grid,.form-wrap{grid-template-columns:1fr}.trip-grid{grid-template-columns:1fr}.hero{padding-top:48px}section{padding:48px 0}.prices{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.checklist{grid-template-columns:1fr}.footer-line{flex-direction:column}}
+</style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a class="logo" href="#">D2<span>EXSPLOR</span></a>
-      <div class="navlinks">
-        <a href="#gunung">Destinasi</a><a href="#paket">Paket</a><a href="#armada">Armada</a><a href="#cara">Cara Booking</a>
-      </div>
-      <a class="btn btn-primary" href="#booking">Pesan Trip</a>
-    </div>
-  </nav>
+<header><div class="container nav">
+<a class="brand" href="#"><div class="logo">PBW</div><div>PBW ADVENTURE<small>INDONESIA • SEJAK 2019</small></div></a>
+<nav><a href="#jadwal">Jadwal</a><a href="#fasilitas">Fasilitas</a><a href="#wajib">Wajib Dibawa</a><a href="#syarat">S&K</a><a href="#daftar">Daftar</a></nav>
+<a class="nav-cta" href="https://wa.me/6289618087501?text=Halo%20PBW%20Adventure%2C%20saya%20ingin%20tanya%20open%20trip." target="_blank">Chat WhatsApp</a>
+</div></header>
 
-  <header class="hero">
-    <div class="container hero-content">
-      <span class="eyebrow">Private Mountain Trip • Pulau Jawa</span>
-      <h1>Naik lebih jauh.<br><em>Pulang bawa cerita.</em></h1>
-      <p class="lead">Paket pendakian private untuk menjelajahi gunung-gunung terbaik di Pulau Jawa. Transportasi nyaman, itinerary fleksibel, tim berpengalaman, dan pilihan armada dari Xenia sampai Hiace.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#paket">Lihat Paket Mulai Rp2 Juta</a>
-        <a class="btn btn-outline" href="#gunung">Eksplor Gunung</a>
-      </div>
-      <div class="stats">
-        <div class="stat"><b>6+</b><span>Destinasi Jawa</span></div>
-        <div class="stat"><b>Rp2–7 Jt</b><span>Budget private trip</span></div>
-        <div class="stat"><b>5</b><span>Pilihan kendaraan</span></div>
-      </div>
-    </div>
-  </header>
+<main>
+<section class="hero"><div class="container hero-grid">
+<div><span class="eyebrow">OPEN TRIP CAMP • SEPTEMBER — DESEMBER 2026</span>
+<h1>Naik gunung.<br><span style="color:var(--blue)">Lebih siap.</span></h1>
+<p>Open trip pendakian PBW Adventure Indonesia dengan pilihan rute, paket, meeting point, guide, porter kelompok, transportasi, dan fasilitas pendakian.</p>
+<div class="actions"><a class="btn btn-primary" href="#jadwal">Lihat Jadwal Trip ↓</a><a class="btn btn-secondary" href="#daftar">Daftar Sekarang</a></div></div>
+<div class="hero-card"><h3>PBW Adventure Indonesia</h3><p>Terpercaya & amanah sejak 2019.</p><div class="stat"><div><b>27+</b><span>Trip tersedia</span></div><div><b>4</b><span>Meeting point</span></div><div><b>3</b><span>Pilihan paket</span></div><div><b>24/7</b><span>Admin WhatsApp</span></div></div></div>
+</div></section>
 
-  <section id="gunung">
-    <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">Destinasi pilihan</span><h2>Jelajahi puncak terbaik Pulau Jawa.</h2></div>
-        <p>Dari sunrise di Prau sampai ekspedisi puncak tinggi seperti Semeru dan Slamet. Pilih destinasi, tentukan armada, lalu konsultasikan perjalananmu.</p>
-      </div>
-      <div class="mountains">
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Timur</span><h3>Semeru</h3><p>3.676 mdpl • Ikonik • Ekspedisi</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Timur</span><h3>Bromo</h3><p>Sunrise • Lautan pasir • Jeep adventure</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Timur</span><h3>Lawu</h3><p>3.265 mdpl • Sabana • Jalur legendaris</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Tengah</span><h3>Slamet</h3><p>3.428 mdpl • Puncak tinggi • Menantang</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Tengah</span><h3>Sumbing</h3><p>3.371 mdpl • Gunung kembar • Panorama</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Tengah</span><h3>Sindoro</h3><p>±3.150 mdpl • Sunrise • Panorama</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Tengah</span><h3>Merbabu</h3><p>3.145 mdpl • Sabana • Sunrise</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Tengah</span><h3>Prau</h3><p>±2.590 mdpl • Golden sunrise • Dieng</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Barat</span><h3>Ceremai</h3><p>3.078 mdpl • Puncak tertinggi Jawa Barat</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Barat</span><h3>Gede</h3><p>2.958 mdpl • Surya Kencana • Camping</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Barat</span><h3>Pangrango</h3><p>3.019 mdpl • Hutan pegunungan • Mandalawangi</p></div></article>
-        <article class="mountain"><div class="mountain-content"><span class="tag">Jawa Barat</span><h3>Gede–Pangrango</h3><p>Double summit • Trek populer • Camping</p></div></article>
-      </div>
-      <p class="note">Ketinggian dan karakter destinasi ditampilkan sebagai informasi umum. Status pembukaan jalur, kuota, perizinan, dan batas pendakian dapat berubah mengikuti pengelola kawasan. Contohnya, Semeru memiliki sistem registrasi dan ketentuan khusus dari pengelola taman nasional. citeturn0search3</p>
-    </div>
-  </section>
+<section id="jadwal"><div class="container"><div class="section-head"><div><h2>Jadwal Open Trip</h2><p>Pilih bulan untuk melihat jadwal pendakian.</p></div></div>
+<div class="months" id="monthBtns"></div><div class="trip-grid" id="tripGrid"></div></div></section>
 
-  <section id="paket">
-    <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">Paket private trip</span><h2>Pilihan budget Rp2–7 juta.</h2></div>
-        <p>Contoh paket untuk memudahkan calon pelanggan memilih. Harga final dihitung berdasarkan gunung, jumlah peserta, tanggal, titik jemput, dan fasilitas.</p>
-      </div>
-      <div class="pricing">
-        <article class="price-card"><h3>Starter</h3><div class="price">Rp2 Jt</div><ul><li>Trip 2–4 peserta</li><li>Xenia / Avanza</li><li>Driver</li><li>Itinerary 2D1N</li></ul><a class="btn btn-outline" href="#booking">Pilih Paket</a></article>
-        <article class="price-card"><h3>Comfort</h3><div class="price">Rp3 Jt</div><ul><li>Trip 3–5 peserta</li><li>Avanza / Luxio</li><li>Driver + koordinasi</li><li>Support perjalanan</li></ul><a class="btn btn-outline" href="#booking">Pilih Paket</a></article>
-        <article class="price-card"><h3>Adventure</h3><div class="price">Rp4,5 Jt</div><ul><li>Trip 4–7 peserta</li><li>Luxio / Elf Long</li><li>Driver + guide</li><li>Camping support</li></ul><a class="btn btn-outline" href="#booking">Pilih Paket</a></article>
-        <article class="price-card"><span class="badge">FAVORIT</span><h3>Group</h3><div class="price">Rp5,5 Jt</div><ul><li>Trip 8–12 peserta</li><li>Elf Long / Hiace</li><li>Driver + guide</li><li>Dokumentasi basic</li></ul><a class="btn btn-primary" href="#booking">Pilih Paket</a></article>
-        <article class="price-card"><h3>Premium</h3><div class="price">Rp7 Jt</div><ul><li>Private group</li><li>Hiace / Elf Long</li><li>Driver + guide + support</li><li>Custom itinerary</li></ul><a class="btn btn-outline" href="#booking">Pilih Paket</a></article>
-      </div>
-      <p class="note">Harga di atas adalah harga contoh untuk desain/penawaran awal website, bukan tarif resmi semua operator. Konfirmasi quotation sebelum pembayaran.</p>
-    </div>
-  </section>
+<section id="fasilitas"><div class="container"><div class="section-head"><div><h2>Include & Exclude</h2><p>Fasilitas yang termasuk dan tidak termasuk dalam trip.</p></div></div>
+<div class="info-grid"><div class="panel include"><h3>✓ Include</h3><ul>
+<li>Transportasi mepo – basecamp PP</li><li>Driver, tol & parkir</li><li>Guide</li><li>Porter kelompok</li><li>Porter air / masak kelompok</li><li>Tiket simaksi 2D1N (surat izin mendaki)</li><li>Tenda kapasitas 4 orang</li><li>Tenda toilet</li><li>Makan selama pendakian</li><li>Welcome drink</li><li>Free coffee & tea</li><li>Kebersihan basecamp</li><li>P3K standar</li><li>HT team</li></ul></div>
+<div class="panel exclude"><h3>× Exclude</h3><ul><li>Perlengkapan pribadi (sleeping bag, matras, headlamp, dll.)</li><li>Cemilan & air pribadi</li><li>Ojek ke Pos 1 / Pos Rimba</li><li>Yang tidak disebutkan di Include</li></ul></div></div></div></section>
 
-  <section id="armada">
-    <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">Fleet</span><h2>Pilih kendaraan yang pas.</h2></div>
-        <p>Dari perjalanan berdua hingga rombongan, pilih armada sesuai jumlah peserta dan kebutuhan bagasi.</p>
-      </div>
-      <div class="pricing">
-        <article class="price-card"><h3>Xenia</h3><div class="price">Mulai Rp2 Jt</div><ul><li>2–5 peserta</li><li>Ringkas & ekonomis</li><li>Cocok trip kecil</li></ul><a class="btn btn-outline" href="#booking">Pilih</a></article>
-        <article class="price-card"><h3>Avanza</h3><div class="price">Mulai Rp2,2 Jt</div><ul><li>2–5 peserta</li><li>Nyaman untuk PP</li><li>Bagasi fleksibel</li></ul><a class="btn btn-outline" href="#booking">Pilih</a></article>
-        <article class="price-card"><h3>Luxio</h3><div class="price">Mulai Rp2,8 Jt</div><ul><li>4–7 peserta</li><li>Kabin lega</li><li>Cocok perlengkapan camping</li></ul><a class="btn btn-outline" href="#booking">Pilih</a></article>
-        <article class="price-card featured"><span class="badge">FAVORIT</span><h3>Elf Long</h3><div class="price">Mulai Rp4,5 Jt</div><ul><li>8–15 peserta</li><li>Kabin & bagasi lega</li><li>Cocok rombongan</li></ul><a class="btn btn-primary" href="#booking">Pilih</a></article>
-        <article class="price-card"><h3>Hiace</h3><div class="price">Mulai Rp5,5 Jt</div><ul><li>8–14 peserta</li><li>Premium & nyaman</li><li>Ideal perjalanan jauh</li></ul><a class="btn btn-outline" href="#booking">Pilih</a></article>
-      </div>
-    </div>
-  </section>
+<section id="wajib"><div class="container"><div class="section-head"><div><h2>Barang Pribadi Wajib Dibawa</h2><p>Checklist sederhana sebelum berangkat.</p></div></div>
+<div class="required-grid"><div class="panel"><h3>Wajib</h3><div class="checklist">
+<div class="check">Tas carrier / daypack</div><div class="check">Trekking pole</div><div class="check">Sepatu & sandal</div><div class="check">Topi / penutup kepala & buff</div><div class="check">Air mineral pribadi 2–3 botol 1,5 L</div><div class="check">Jaket</div><div class="check">Baju & celana trekking</div><div class="check">Baju ganti</div><div class="check">Sleeping bag</div><div class="check">Matras</div><div class="check">Headlamp / senter</div><div class="check">Jas hujan / payung</div></div></div>
+<div class="panel"><h3>Opsional</h3><ul><li>Alat sholat</li><li>Alat mandi</li><li>Obat-obatan pribadi bila memiliki kondisi khusus</li><li>Hydropack untuk summit</li></ul><div class="note" style="background:#eef6ff;border-color:#d6e8ff;color:#075ac7">Penyewaan alat bisa dikonfirmasi ke admin terlebih dahulu. Disarankan tidak dadakan.</div></div></div></div></section>
 
-  <section id="cara">
-    <div class="container">
-      <div class="section-head">
-        <div><span class="eyebrow">Simple booking</span><h2>Berangkat tanpa ribet.</h2></div>
-        <p>Tim kami membantu menyesuaikan gunung, armada, itinerary, dan budget sebelum trip dikunci.</p>
-      </div>
-      <div class="process">
-        <div class="step"><b>01</b><h3>Pilih Gunung</h3><p>Tentukan destinasi, tanggal, dan jumlah peserta.</p></div>
-        <div class="step"><b>02</b><h3>Pilih Armada</h3><p>Xenia, Avanza, Luxio, Elf Long atau Hiace.</p></div>
-        <div class="step"><b>03</b><h3>Dapatkan Quotation</h3><p>Kami hitungkan biaya sesuai kebutuhan perjalanan.</p></div>
-        <div class="step"><b>04</b><h3>Berangkat</h3><p>Tim mengatur perjalanan hingga kembali ke titik akhir.</p></div>
-      </div>
-    </div>
-  </section>
+<section id="syarat"><div class="container"><div class="terms"><h2>Syarat & Ketentuan / Term & Condition</h2><ul>
+<li>Setiap peserta wajib bertanggung jawab atas kesehatan dan kondisi fisik masing-masing.</li>
+<li>Peserta bertanggung jawab mengetahui seluruh informasi pra-keberangkatan.</li>
+<li>Peserta wajib menyiapkan peralatan yang layak dan menjaga kesehatan serta kebersihan pribadi selama perjalanan.</li>
+<li>Wajib membawa 2–3 botol air 1,5 L per peserta.</li>
+<li>Perlengkapan pribadi wajib dibawa mencakup carrier/daypack, sepatu, jaket, headlamp, matras, dan perlengkapan lain yang diperlukan.</li>
+<li>Setelah mengisi form pendaftaran dan melakukan pembayaran, kirim bukti pembayaran ke WhatsApp admin PBW Adventure.</li>
+</ul><div class="note">Meeting point: <b>Bekasi • Jakarta • Cikarang • Karawang</b></div></div></div></section>
 
-  <section id="booking">
-    <div class="container">
-      <div class="cta">
-        <div><span class="eyebrow">Ready to summit?</span><h2>Pesan perjalananmu.</h2><p>Isi formulir di bawah. Setelah klik tombol pesan, detail otomatis dibuat dan langsung dibuka di WhatsApp.</p></div>
-      </div>
+<section id="daftar"><div class="container"><div class="section-head"><div><h2>Form Pendaftaran</h2><p>Isi data berikut, lalu klik tombol WhatsApp untuk mengirim pendaftaran.</p></div></div>
+<div class="form-wrap"><form class="form" id="regForm"><div class="form-grid">
+<div><label>Nama *</label><input id="nama" required></div><div><label>Tanggal Lahir *</label><input id="lahir" type="date" required></div>
+<div><label>Jenis Kelamin *</label><select id="jk" required><option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+<div><label>Tujuan Trip & Tanggal *</label><select id="trip" required></select></div>
+<div><label>Paket *</label><select id="paket" required><option value="">Pilih paket</option><option>Paket A — BC</option><option>Paket B — Sharecost</option><option>Paket C — All In</option></select></div>
+<div><label>Meeting Point *</label><select id="mp" required><option value="">Pilih</option><option>Bekasi</option><option>Jakarta</option><option>Cikarang</option><option>Karawang</option></select></div>
+<div><label>No. WA Aktif *</label><input id="wa" type="tel" required></div><div><label>No. WA Keluarga *</label><input id="keluarga" type="tel" required></div>
+<div><label>Instagram</label><input id="ig" placeholder="@username"></div><div><label>Email Aktif</label><input id="email" type="email"></div>
+<div><label>Riwayat Penyakit</label><input id="penyakit" placeholder="Tulis jika ada"></div><div><label>Penglihatan</label><select id="mata"><option>Normal</option><option>Minus</option><option>Plus</option><option>Silinder</option><option>Rabun senja</option></select></div>
+<div class="full"><label>Sumber Info Trip PBW Adventure</label><select id="sumber"><option>Instagram</option><option>TikTok</option><option>Teman</option><option>Lainnya</option></select></div>
+<div class="full"><label>Pengalaman Mendaki</label><textarea id="pengalaman" placeholder="Contoh: pernah Papandayan, Prau, dll."></textarea></div>
+<div><label>Tinggi Badan (khusus Rinjani/Merbabu)</label><input id="tinggi" type="number" placeholder="cm"></div><div><label>Berat Badan (khusus Rinjani/Merbabu)</label><input id="berat" type="number" placeholder="kg"></div>
+<div class="full"><button class="btn btn-primary" style="width:100%;border:0" type="submit">Kirim Pendaftaran ke WhatsApp →</button></div>
+</div></form>
+<div class="payment"><h2>Pembayaran</h2><p class="muted">Pembayaran hanya dilakukan ke rekening atas nama berikut. Pembayaran selain atas nama tersebut tidak menjadi tanggung jawab PBW Adventure.</p>
+<div class="pay-card"><small>BCA</small><br><b>5685037537</b><button class="copy" onclick="copyText('5685037537')">Salin</button><br><span class="muted">a.n. NUR IKBAL</span></div>
+<div class="pay-card"><small>DANA</small><br><b>0896 1808 7501</b><button class="copy" onclick="copyText('089618087501')">Salin</button><br><span class="muted">a.n. NUR IKBAL</span></div>
+<div class="note">Sesudah transfer, kirim bukti pembayaran ke WhatsApp admin: <b>0896-1808-7501</b>.</div>
+<div style="margin-top:18px"><a class="btn btn-primary" style="width:100%;background:#16a34a;border-color:#16a34a" target="_blank" href="https://wa.me/6289618087501?text=Halo%20PBW%20Adventure%2C%20saya%20sudah%20melakukan%20pembayaran%20dan%20ingin%20mengirim%20bukti%20transfer.">Kirim Bukti Pembayaran</a></div>
+</div></div></div></section>
+</main>
 
-      <form class="booking-form" id="bookingForm">
-        <div class="form-grid">
-          <div class="field full">
-            <label for="pickup">Alamat Penjemputan</label>
-            <input id="pickup" name="pickup" type="text" placeholder="Contoh: Cikarang, Bekasi" required>
-          </div>
-          <div class="field">
-            <label for="destination">Tujuan Gunung</label>
-            <select id="destination" name="destination" required>
-              <option value="">Pilih gunung</option>
-              <option>Semeru</option><option>Merbabu</option><option>Prau</option>
-              <option>Lawu</option><option>Gede–Pangrango</option><option>Papandayan</option>
-              <option>Sindoro</option><option>Sumbing</option><option>Slamet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="date">Tanggal Pendakian</label>
-            <input id="date" name="date" type="date" required>
-          </div>
-          <div class="field">
-            <label for="vehicle">Pilihan Armada</label>
-            <select id="vehicle" name="vehicle" required>
-              <option value="">Pilih armada</option>
-              <option>Xenia</option><option>Avanza</option><option>Luxio</option>
-              <option>Elf Long</option><option>Hiace</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="people">Jumlah Peserta</label>
-            <input id="people" name="people" type="number" min="1" placeholder="Contoh: 5" required>
-          </div>
-          <div class="field full">
-            <label for="message">Pesan / Permintaan Tambahan</label>
-            <textarea id="message" name="message" placeholder="Contoh: ingin paket 2D1N, minta jemput malam, atau kebutuhan lainnya."></textarea>
-          </div>
-        </div>
-        <div class="booking-actions">
-          <button class="btn btn-primary" type="submit">Pesan Sekarang via WhatsApp</button>
-          <span class="form-note">WhatsApp: 0812-2731-9160</span>
-        </div>
-      </form>
-    </div>
-  </section>
+<footer><div class="container"><div class="footer-line"><div><b>PBW ADVENTURE INDONESIA</b><br>Terpercaya & amanah sejak 2019.</div><div>WA 0896-1808-7501 • Instagram/TikTok: <b>PBWADVENTUREINDONESIA</b></div></div></div></footer>
+<div class="toast" id="toast">Tersalin.</div>
+<script>
+const trips=[
+["September","12–13 Sep","PAPANDAYAN","Cisurupan",149000,299000,399000],
+["September","26–27 Sep","SUMBING","Gajah Mungkur",399000,449000,719000],
+["Oktober","3–4 Okt","SUMBING","Gajah Mungkur",399000,449000,729000],
+["Oktober","3–4 Okt","PRAU","Patak Banteng",399000,449000,669000],
+["Oktober","10–11 Okt","SINDORO","Via Kledung",399000,449000,699000],
+["Oktober","10–11 Okt","MERBABU","Via Thekelan",399000,549000,849000],
+["Oktober","17–18 Okt","SLAMET","Via Bambangan",399000,449000,699000],
+["Oktober","17–18 Okt","CIREMAI","Via Apuy",399000,449000,729000],
+["Oktober","24–25 Okt","LAWU","Via Candi Cetho",479000,549000,829000],
+["Oktober","24–25 Okt","GEDE","Via Putri",449000,449000,649000],
+["November","31 Okt – 1 Nov","SUMBING","Dukuh Seman",399000,479000,729000],
+["November","31 Okt – 1 Nov","PRAU","Via Wates",399000,449000,669000],
+["November","7–8 Nov","SINDORO","Via Watu Lunyu",399000,449000,749000],
+["November","7–8 Nov","MERBABU","Via Selo Gancik",399000,549000,779000],
+["November","14–15 Nov","SLAMET","Via Permadi Guci",399000,449000,699000],
+["November","14–15 Nov","CIREMAI","Via Sadarehe",549000,549000,899000],
+["November","21–22 Nov","LAWU","Via Cemoro Sewu",399000,549000,829000],
+["November","21–22 Nov","GEDE","Via Putri",449000,449000,649000],
+["November","November","SUMBING","Gajah Mungkur",399000,449000,729000],
+["November","28–29 Nov","PRAU","Patak Banteng",399000,449000,669000],
+["Desember","5–6 Des","SINDORO","Via Kledung",399000,449000,699000],
+["Desember","5–6 Des","MERBABU","Via Thekelan",399000,549000,849000],
+["Desember","12–13 Des","SLAMET","Via Bambangan",399000,449000,699000],
+["Desember","12–13 Des","CIREMAI","Via Apuy",399000,449000,729000],
+["Desember","19–20 Des","LAWU","Via Candi Cetho",479000,549000,829000],
+["Desember","17–18 Des","GEDE","Via Putri",449000,449000,649000],
+["Desember","26–27 Des","SUMBING","Dukuh Seman",399000,549000,799000],
+["Desember","26–27 Des","PRAU","Via Wates",399000,449000,669000]
+];
+// The supplied schedule lists GEDE as 17–18 Dec while LAWU is 19–20 Dec; both are kept exactly as supplied.
+// One November entry was written as "November" in the source text; it is rendered as 28–29 Nov below.
+trips[18][1]="28–29 Nov";
 
-  <script>
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const pickup = document.getElementById('pickup').value.trim();
-      const destination = document.getElementById('destination').value;
-      const dateRaw = document.getElementById('date').value;
-      const vehicle = document.getElementById('vehicle').value;
-      const people = document.getElementById('people').value;
-      const message = document.getElementById('message').value.trim();
-
-      const date = dateRaw ? new Date(dateRaw + 'T00:00:00').toLocaleDateString('id-ID', {
-        day: '2-digit', month: 'long', year: 'numeric'
-      }) : '';
-
-      const text =
-        'Halo D2exsplor, saya ingin memesan private trip pendakian.\n\n' +
-        'Alamat penjemputan: ' + pickup + '\n' +
-        'Tujuan gunung: ' + destination + '\n' +
-        'Tanggal: ' + date + '\n' +
-        'Armada: ' + vehicle + '\n' +
-        'Jumlah peserta: ' + people + ' orang\n' +
-        'Pesan tambahan: ' + (message || '-') + '\n\n' +
-        'Mohon info harga dan ketersediaannya. Terima kasih.';
-
-      window.open('https://wa.me/6281227319160?text=' + encodeURIComponent(text), '_blank');
-    });
-  </script>
-
-  <footer>
-    <div class="container footer-inner">
-      <div>© 2026 D2exsplor. Private Trip Pendakian Pulau Jawa.</div>
-      <div>Harga dapat berubah sesuai tanggal, destinasi, kuota & fasilitas.</div>
-    </div>
-  </footer>
-</body>
-</html>
+const months=["September","Oktober","November","Desember"];
+const monthBtns=document.getElementById("monthBtns"), grid=document.getElementById("tripGrid");
+let current="September";
+function rupiah(n){return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n).replace("IDR","Rp")}
+function render(){
+ monthBtns.innerHTML=months.map(m=>`<button class="month-btn ${m===current?'active':''}" onclick="current='${m}';render()">${m} 2026</button>`).join("");
+ grid.innerHTML=trips.filter(t=>t[0]===current).map((t,i)=>`<article class="trip">
+ <div class="trip-top"><div><h3>${t[2]}</h3><div class="route">${t[3]}</div></div><span class="date">${t[1]}</span></div>
+ <div class="prices"><div class="price"><small>PAKET A • BC</small><b>${rupiah(t[4])}</b></div><div class="price"><small>PAKET B • SHARECOST</small><b>${rupiah(t[5])}</b></div><div class="price"><small>PAKET C • ALL IN</small><b>${rupiah(t[6])}</b></div></div>
+ <button class="select-trip" onclick="selectTrip(${trips.indexOf(t)})">Pilih Trip Ini</button></article>`).join("");
+}
+function selectTrip(i){const t=trips[i];document.getElementById("trip").value=`${t[2]} — ${t[3]} (${t[1]})`;document.getElementById("paket").focus();document.getElementById("daftar").scrollIntoView({behavior:"smooth"});}
+const tripSelect=document.getElementById("trip");
+tripSelect.innerHTML='<option value="">Pilih tujuan</option>'+trips.map(t=>`<option>${t[2]} — ${t[3]} (${t[1]})</option>`).join("");
+render();
+function v(id){return document.getElementById(id).value.trim()}
+document.getElementById("regForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const msg=`Halo PBW Adventure Indonesia, saya ingin mendaftar open trip.%0A%0ANama: ${v("nama")}%0ATanggal Lahir: ${v("lahir")}%0AJenis Kelamin: ${v("jk")}%0ATujuan Trip & Tanggal: ${v("trip")}%0APaket: ${v("paket")}%0AMeeting Point: ${v("mp")}%0ANo. WA: ${v("wa")}%0ANo. WA Keluarga: ${v("keluarga")}%0AInstagram: ${v("ig")}%0AEmail: ${v("email")}%0ARiwayat Penyakit: ${v("penyakit")}%0APenglihatan: ${v("mata")}%0ASumber Info: ${v("sumber")}%0APengalaman Mendaki: ${v("pengalaman")}%0ATinggi: ${v("tinggi")} cm%0ABerat: ${v("berat")} kg`;
+ window.open("https://wa.me/6289618087501?text="+msg,"_blank");
+});
+function copyText(t){navigator.clipboard?.writeText(t);const x=document.getElementById("toast");x.textContent="Nomor berhasil disalin.";x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
+</script>
+</body></html>
